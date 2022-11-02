@@ -12,31 +12,22 @@ Linting
 
 ## Build
 
-Run
-`make run`
-
-Run with hotreload
-`make hotreload`
-
-Test
-`make test`
-
-Lint
-`make lint`
-
-Build
+`make run`  
+`make hotreload`  
+`make test`  
+`make lint`  
 `make build`
 
 ## Dependencies
 
-`chi` for routering
-`zap` for logging
+`chi` for routering  
+`zap` for logging  
 `templ` for server side template rendering
 
-`is` for testing
+`is` for testing  
 `moq` for mocking
 
 ## Structure Inspiration
 
-Mat Ryer - How I write HTTP services after eight years talk<https://www.youtube.com/watch?v=XGVZ0Ip4XPM>
-Mat Ryer - Deep dive of real application<https://www.youtube.com/watch?v=VRZZeJwIAIM>
+[Mat Ryer - How I write HTTP services after eight years talk](https://www.youtube.com/watch?v=XGVZ0Ip4XPM)
+[Mat Ryer - Deep dive of real application](https://www.youtube.com/watch?v=VRZZeJwIAIM)
