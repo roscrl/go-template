@@ -1,0 +1,41 @@
+package views
+
+import (
+  "fmt"
+  "time"
+)
+
+templ headerTemplate(name string) {
+  <header>
+    <h1>{ name }</h1>
+  </header>
+}
+
+templ navTemplate() {
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/posts">Posts</a></li>
+    </ul>
+  </nav>
+}
+
+templ footerTemplate() {
+	<footer>
+		<div>&copy; { fmt.Sprintf("%d", time.Now().Year()) }</div>
+	</footer>
+}
+
+templ layout(name string, content templ.Component) {
+	<html>
+		<head><title>{ name }</title></head>
+		<body>
+			{! headerTemplate(name) }
+			{! navTemplate() }
+			<main>
+				{! content }
+			</main>
+		</body>
+		{! footerTemplate() }
+	</html>
+}
