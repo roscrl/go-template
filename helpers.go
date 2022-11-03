@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	s.router.ServeHTTP(w, r)
+func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	s.router.ServeHTTP(w, req)
 }
 
 func (s *Server) respond(w http.ResponseWriter, req *http.Request, data any, status int) {

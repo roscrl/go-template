@@ -12,11 +12,11 @@ func TestHandlePosts(t *testing.T) {
 
 	is := is.New(t)
 	server := newMinimalServer(DEV)
-	r := httptest.NewRequest("GET", "/posts", nil)
 	w := httptest.NewRecorder()
+	req := httptest.NewRequest("GET", "/posts", nil)
 
-	server.ServeHTTP(w, r)     // integration test like (middlewares included)
-	server.handlePosts()(w, r) // unit test like (no middlewares)
+	server.ServeHTTP(w, req)     // integration test like (middlewares included)
+	server.handlePosts()(w, req) // unit test like (no middlewares)
 
 	is.Equal(w.Result().StatusCode, http.StatusOK)
 }

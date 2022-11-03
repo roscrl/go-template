@@ -12,11 +12,11 @@ func TestHandleHome(t *testing.T) {
 
 	is := is.New(t)
 	server := newMinimalServer(DEV)
-	r := httptest.NewRequest("GET", "/", nil)
 	w := httptest.NewRecorder()
+	req := httptest.NewRequest("GET", "/", nil)
 
-	server.ServeHTTP(w, r)    // integration test like (middlewares included)
-	server.handleHome()(w, r) // unit test like (no middlewares)
+	server.ServeHTTP(w, req)    // integration test like (middlewares included)
+	server.handleHome()(w, req) // unit test like (no middlewares)
 
 	is.Equal(w.Result().StatusCode, http.StatusOK)
 }
