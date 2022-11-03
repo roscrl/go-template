@@ -1,4 +1,4 @@
-# Go Scaffold
+# Go Template
 
 ## Setup
 

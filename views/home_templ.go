@@ -54,7 +54,7 @@ func homeTemplate() templ.Component {
 			return err
 		}
 		// Text
-		var_3 := `Welcome to my website.`
+		var_3 := `Example usage of templ, component like functionally but server side rendered`
 		_, err = templBuffer.WriteString(var_3)
 		if err != nil {
 			return err
