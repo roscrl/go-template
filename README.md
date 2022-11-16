@@ -22,10 +22,9 @@ Linting
 
 `chi` for routering  
 `zap` for logging  
-`clock` for mocking time
 `templ` for server side template rendering
 
-`httptest` to spin up mock server responses & http integration requests
+`httptest` to spin up mock server responses & http integration requests  
 `is` for testing assertions
 `moq` for mocking
 
