@@ -25,7 +25,7 @@ Linting
 `templ` for server side template rendering
 
 `httptest` to spin up mock server responses & http integration requests  
-`is` for testing assertions
+`is` for testing assertions  
 `moq` for mocking
 
 ## Structure Inspiration
