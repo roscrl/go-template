@@ -3,7 +3,7 @@
 [build]
   args_bin = []
   bin = "./bin/app"
-  cmd = "templ generate -path ./views/ && go build -o ./bin/app ."
+  cmd = "templ generate -path ./views/ && go test && go build -o ./bin/app ."
   delay = 200
   exclude_dir = ["assets", "tmp", "vendor", "testdata"]
   exclude_file = []

@@ -52,7 +52,7 @@ func newRouter(env Environment) *chi.Mux {
 
 func main() {
 	server := newMinimalServer(DEV)
-	defer server.log.Sync()
+	defer func() { _ = server.log.Sync() }()
 
 	err := http.ListenAndServe(":3000", server.router)
 	if err != nil {
