@@ -4,7 +4,7 @@ clean:
 
 .PHONY build:
 build: clean 
-	go build -o bin/app .
+	go build -o bin/main .
 
 .PHONY run:
 run: 

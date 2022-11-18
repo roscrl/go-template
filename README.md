@@ -2,21 +2,21 @@
 
 ## Setup
 
-Hot reload, on file change rebuild app
-
-`go install github.com/cosmtrek/air@latest`
-
-Linting
-
-`go install github.com/nametake/golangci-lint-langserver@latest`
+make hotreload requires `go install github.com/cosmtrek/air@latest`
+make lint requires `go install github.com/nametake/golangci-lint-langserver@latest`
 
 ## Build
 
 `make run`  
-`make hotreload`  
+`make hotreload` on file change -> rebuild, test & rerun
 `make test`  
 `make lint`  
 `make build`
+
+## Docker
+
+`docker build . --tag go-template -f config/Dockerfile` image defaults to platform architecture
+`docker build . --platform=linux/amd64 --tag go-template -f config/Dockerfile` x86-64
 
 ## Dependencies
 

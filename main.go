@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -21,6 +22,38 @@ type Server struct {
 	log *zap.SugaredLogger
 
 	router *chi.Mux
+}
+
+func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	s.router.ServeHTTP(w, req)
+}
+
+func (s *Server) respond(w http.ResponseWriter, req *http.Request, data any, status int) {
+	w.WriteHeader(status)
+	if data == nil {
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	err := json.NewEncoder(w).Encode(data)
+	if err != nil {
+		s.log.Error(err)
+		w.WriteHeader(http.StatusInternalServerError)
+	}
+}
+
+func (s *Server) decode(w http.ResponseWriter, req *http.Request, data any) error {
+	return json.NewDecoder(req.Body).Decode(data)
+}
+
+func main() {
+	server := newMinimalServer(DEV)
+	defer func() { _ = server.log.Sync() }()
+
+	err := http.ListenAndServe(":3000", server.router)
+	if err != nil {
+		server.log.Fatal(err)
+	}
 }
 
 func newMinimalServer(env Environment) *Server {
@@ -48,14 +81,4 @@ func newRouter(env Environment) *chi.Mux {
 
 	router.Use(middleware.Recoverer)
 	return router
-}
-
-func main() {
-	server := newMinimalServer(DEV)
-	defer func() { _ = server.log.Sync() }()
-
-	err := http.ListenAndServe(":3000", server.router)
-	if err != nil {
-		server.log.Fatal(err)
-	}
 }
