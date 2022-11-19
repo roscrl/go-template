@@ -8,7 +8,7 @@
 ## Build
 
 `make run`  
-`make hotreload` on file change rebuild, test & rerun
+`make hotreload` on file change - rebuild, test & rerun  
 `make test`  
 `make lint`  
 `make build`
