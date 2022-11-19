@@ -2,7 +2,7 @@
 
 ## Setup
 
-make hotreload requires `go install github.com/cosmtrek/air@latest`
+make hotreload requires `go install github.com/cosmtrek/air@latest`  
 make lint requires `go install github.com/nametake/golangci-lint-langserver@latest`
 
 ## Build
