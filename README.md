@@ -11,7 +11,7 @@
 
 ### What changes?
 
-UAT/PROD: Production zap logger [instead of dev](https://pkg.go.dev/go.uber.org/zap#hdr-Configuring_Zap)
+UAT/PROD: Use production zap logger [instead of development](https://pkg.go.dev/go.uber.org/zap#hdr-Configuring_Zap)
 
 ## Build
 
