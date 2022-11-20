@@ -5,6 +5,9 @@
 `make hotreload` requires `go install github.com/cosmtrek/air@latest`  
 `make lint` requires `go install github.com/nametake/golangci-lint-langserver@latest`
 
+`git clone https://github.com/roscrl/go-template.git`  
+`go mod download`
+
 ## Environment Variables
 
 `export ENV=DEV (default) / UAT / PROD`
