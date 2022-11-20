@@ -9,7 +9,7 @@
 
 `export ENV=DEV (default) / UAT / PROD`
 
-### What changes?
+### What changes in each environment?
 
 UAT/PROD: Use production zap logger [instead of development](https://pkg.go.dev/go.uber.org/zap#hdr-Configuring_Zap)
 
