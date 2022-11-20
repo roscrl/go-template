@@ -41,8 +41,4 @@
 
 ## Miscellaneous bits & bobs to look into
 
-OpenAPI
-OpenTelemetry
-Grafana + Prometheus
-
-###### Cucumber - Godog
+OpenAPI, OpenTelemetry, Grafana + Prometheus, Cucumber - Godog
