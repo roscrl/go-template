@@ -2,9 +2,10 @@
 FROM golang:1.19 as builder
 
 WORKDIR /app
-COPY . .
+COPY go.mod go.sum ./
 RUN go mod download
 
+COPY . .
 RUN go build -o main .
 
 # final container stage

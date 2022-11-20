@@ -17,6 +17,7 @@
 
 `docker build . --tag go-template -f config/Dockerfile` image defaults to platform architecture
 `docker build . --platform=linux/amd64 --tag go-template -f config/Dockerfile` x86-64
+`docker build . --platform=linux/arm64 --tag go-template -f config/Dockerfile` arm64
 
 ## Dependencies
 
@@ -26,9 +27,22 @@
 
 `httptest` to spin up mock server responses & http integration requests  
 `is` for testing assertions  
-`moq` for mocking
+`moq` for mocking interfaces, or prefer to [inline test data into structs](https://jrock.us/posts/go-interfaces/)
+
+## Profiling
+
+`curl --output profile "localhost:3000/debug/pprof/profile?seconds=30"` 30 seconds to hit endpoints you are interested in profiling
+`go tool pprof -http localhost:3001 profile`
 
 ## Structure Inspiration
 
 [Mat Ryer - How I write HTTP services after eight years talk](https://www.youtube.com/watch?v=XGVZ0Ip4XPM)  
 [Mat Ryer - Deep dive of real application](https://www.youtube.com/watch?v=VRZZeJwIAIM)
+
+## Miscellaneous bits & bobs to look into
+
+OpenAPI
+OpenTelemetry
+Grafana + Prometheus
+
+###### Cucumber - Godog

@@ -4,6 +4,10 @@ import (
 	"encoding/json"
 	"net/http"
 
+	m "app/middleware"
+
+	_ "net/http/pprof"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"go.uber.org/zap"
@@ -16,6 +20,10 @@ const (
 	UAT
 	PROD
 )
+
+func (env Environment) String() string {
+	return []string{"DEV", "UAT", "PROD"}[env]
+}
 
 type Server struct {
 	env Environment
@@ -47,9 +55,10 @@ func (s *Server) decode(w http.ResponseWriter, req *http.Request, data any) erro
 }
 
 func main() {
-	server := newMinimalServer(DEV)
+	server := newMinimalServer(PROD)
 	defer func() { _ = server.log.Sync() }()
 
+	server.log.Infof("server started as %s on :3000", server.env)
 	err := http.ListenAndServe(":3000", server.router)
 	if err != nil {
 		server.log.Fatal(err)
@@ -57,7 +66,8 @@ func main() {
 }
 
 func newMinimalServer(env Environment) *Server {
-	server := &Server{env: env, log: newLogger(env), router: newRouter(env)}
+	log := newLogger(env)
+	server := &Server{env: env, log: log, router: newRouter(env, log)}
 	server.routes()
 	return server
 }
@@ -73,12 +83,15 @@ func newLogger(env Environment) *zap.SugaredLogger {
 	return logger.Sugar()
 }
 
-func newRouter(env Environment) *chi.Mux {
-	router := chi.NewRouter()
+func newRouter(env Environment, l *zap.SugaredLogger) *chi.Mux {
+	r := chi.NewRouter()
+
 	if env == DEV {
-		router.Use(middleware.Logger)
+		r.Use(middleware.Logger) // non structured chi dev logger
+	} else {
+		r.Use(m.Logger(l))
 	}
 
-	router.Use(middleware.Recoverer)
-	return router
+	r.Use(middleware.Recoverer)
+	return r
 }
