@@ -5,6 +5,14 @@
 `make hotreload` requires `go install github.com/cosmtrek/air@latest`  
 `make lint` requires `go install github.com/nametake/golangci-lint-langserver@latest`
 
+## Environment Variables
+
+`export ENV=DEV (default) / UAT / PROD`
+
+### What changes?
+
+UAT/PROD: Production zap logger [instead of dev](https://pkg.go.dev/go.uber.org/zap#hdr-Configuring_Zap)
+
 ## Build
 
 `make run`  

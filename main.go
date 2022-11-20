@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"os"
 
 	m "app/middleware"
 
@@ -55,7 +56,20 @@ func (s *Server) decode(w http.ResponseWriter, req *http.Request, data any) erro
 }
 
 func main() {
-	server := newMinimalServer(PROD)
+	var server *Server
+
+	env := os.Getenv("ENV")
+	switch env {
+	case "DEV":
+		server = newMinimalServer(DEV)
+	case "UAT":
+		server = newMinimalServer(UAT)
+	case "PROD":
+		server = newMinimalServer(PROD)
+	default:
+		server = newMinimalServer(DEV)
+	}
+
 	defer func() { _ = server.log.Sync() }()
 
 	server.log.Infof("server started as %s on :3000", server.env)
@@ -86,12 +100,8 @@ func newLogger(env Environment) *zap.SugaredLogger {
 func newRouter(env Environment, l *zap.SugaredLogger) *chi.Mux {
 	r := chi.NewRouter()
 
-	if env == DEV {
-		r.Use(middleware.Logger) // non structured chi dev logger
-	} else {
-		r.Use(m.Logger(l))
-	}
-
+	r.Use(m.Logger(l))
 	r.Use(middleware.Recoverer)
+
 	return r
 }
