@@ -31,7 +31,7 @@
 
 ## Profiling
 
-`curl --output profile "localhost:3000/debug/pprof/profile?seconds=30"` 30 seconds to hit endpoints you are interested in profiling
+`curl --output profile "localhost:3000/debug/pprof/profile?seconds=30"` 30 seconds to hit endpoints you are interested in profiling  
 `go tool pprof -http localhost:3001 profile`
 
 ## Structure Inspiration
