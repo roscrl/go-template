@@ -26,8 +26,8 @@ UAT/PROD: Production zap logger [instead of development](https://pkg.go.dev/go.u
 
 ## Docker
 
-`docker build . --tag go-template -f config/Dockerfile` image defaults to platform architecture
-`docker build . --platform=linux/amd64 --tag go-template -f config/Dockerfile` x86-64
+`docker build . --tag go-template -f config/Dockerfile` image defaults to platform architecture  
+`docker build . --platform=linux/amd64 --tag go-template -f config/Dockerfile` x86-64  
 `docker build . --platform=linux/arm64 --tag go-template -f config/Dockerfile` arm64
 
 ## Dependencies
@@ -52,4 +52,4 @@ UAT/PROD: Production zap logger [instead of development](https://pkg.go.dev/go.u
 
 ## Miscellaneous bits & bobs to look into
 
-OpenAPI, OpenTelemetry, Grafana + Prometheus, Cucumber - Godog
+OpenAPI, OpenTelemetry, Grafana + Prometheus, Cucumber - Godog, Kerberos
