@@ -20,5 +20,5 @@ lint:
 
 .PHONY test:
 test:
-	go test -v 
+	go test ./...
 
