@@ -35,7 +35,7 @@ DEV/UAT/PROD: Production [ECS zap logger](https://www.elastic.co/guide/en/ecs-lo
 `zap` for logging
 `swagger-ui-dist` [vendored](https://github.com/swagger-api/swagger-ui) use the [Swagger Editor](https://editor.swagger.io), see `localhost:3000/swagger/`
 
-`godog` cucumber
+`godog` cucumber  
 `httptest` from stdlib, spin up mock server responses & http integration requests  
 `is` for testing assertions  
 `moq` for mocking interfaces, or prefer to [inline test data into structs](https://jrock.us/posts/go-interfaces/)
