@@ -10,6 +10,5 @@ func (s *Server) routes() {
 	s.router.Get("/posts", s.handlePosts())
 
 	s.router.Get("/swagger/*", s.handleSwagger())
-
-	s.router.Mount("/debug", middleware.Profiler()) // TODO secure this route
+	s.router.Mount("/debug", middleware.Profiler())
 }

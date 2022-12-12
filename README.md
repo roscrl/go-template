@@ -35,7 +35,8 @@ DEV/UAT/PROD: Production [ECS zap logger](https://www.elastic.co/guide/en/ecs-lo
 `zap` for logging
 `swagger-ui-dist` [vendored](https://github.com/swagger-api/swagger-ui) use the [Swagger Editor](https://editor.swagger.io), see `localhost:3000/swagger/`
 
-`httptest` stdlib, spin up mock server responses & http integration requests  
+`godog` cucumber
+`httptest` from stdlib, spin up mock server responses & http integration requests  
 `is` for testing assertions  
 `moq` for mocking interfaces, or prefer to [inline test data into structs](https://jrock.us/posts/go-interfaces/)
 
@@ -49,6 +50,6 @@ DEV/UAT/PROD: Production [ECS zap logger](https://www.elastic.co/guide/en/ecs-lo
 [Mat Ryer - How I write HTTP services after eight years talk](https://www.youtube.com/watch?v=XGVZ0Ip4XPM)  
 [Mat Ryer - Deep dive of real application](https://www.youtube.com/watch?v=VRZZeJwIAIM)
 
-## Miscellaneous bits & bobs to look into
+## TODO
 
-OpenAPI + Makefile, OpenTelemetry, Grafana + Prometheus, Cucumber - Godog, Kerberos
+OpenTelemetry, Grafana + Prometheus, Kerberos

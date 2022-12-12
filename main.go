@@ -11,6 +11,8 @@ import (
 
 	_ "net/http/pprof"
 
+	"github.com/aws/aws-lambda-go/lambda"
+	chiadapter "github.com/awslabs/aws-lambda-go-api-proxy/chi"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"go.elastic.co/ecszap"
@@ -31,15 +33,13 @@ func (env Environment) String() string {
 }
 
 type Server struct {
-	env Environment
-	log *zap.SugaredLogger
+	env    Environment
+	log    *zap.SugaredLogger
+	lambda *chiadapter.ChiLambda
 
 	router *chi.Mux
 	views  *views.View
 }
-
-// TODO fix formatting vim go templates
-// TODO use go embed for templates
 
 func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	s.router.ServeHTTP(w, req)
@@ -82,10 +82,17 @@ func main() {
 
 	defer func() { _ = server.log.Sync() }()
 
-	server.log.Infof("server started as %s on :3000", server.env)
-	err := http.ListenAndServe(":3000", server.router)
-	if err != nil {
-		server.log.Fatal(err)
+	// On lambda, we use the chi adapter to proxy requests to the router
+	if os.Getenv("LAMBDA_TASK_ROOT") != "" {
+		server.lambda = chiadapter.New(server.router)
+		lambda.Start(server.handleLambda)
+	} else {
+		// otherwise, we start the server
+		server.log.Infof("server started as %s on :3000", server.env)
+		err := http.ListenAndServe(":3000", server.router)
+		if err != nil {
+			server.log.Fatal(err)
+		}
 	}
 }
 
