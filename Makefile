@@ -21,7 +21,3 @@ lint:
 .PHONY test:
 test:
 	go test ./...
-
-.PHONY cucumber:
-cucumber:
-	go test -v ./cucumber/...
