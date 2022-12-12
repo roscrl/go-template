@@ -13,19 +13,21 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"go.elastic.co/ecszap"
 	"go.uber.org/zap"
 )
 
 type Environment int
 
 const (
-	DEV Environment = iota
+	LOCAL Environment = iota
+	DEV
 	UAT
 	PROD
 )
 
 func (env Environment) String() string {
-	return []string{"DEV", "UAT", "PROD"}[env]
+	return []string{"LOCAL", "DEV", "UAT", "PROD"}[env]
 }
 
 type Server struct {
@@ -61,27 +63,13 @@ func (s *Server) decode(w http.ResponseWriter, req *http.Request, data any) erro
 	return json.NewDecoder(req.Body).Decode(data)
 }
 
-//	@title			Swagger Example API
-//	@version		1.0
-//	@description	This is a sample server celler server.
-//	@termsOfService	http://swagger.io/terms/
-
-//	@contact.name	API Support
-//	@contact.url	http://www.swagger.io/support
-//	@contact.email	support@swagger.io
-
-//	@license.name	Apache 2.0
-//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
-
-//	@host		localhost:8080
-//	@BasePath	/api/v1
-
-//	@securityDefinitions.basic	BasicAuth
 func main() {
 	var server *Server
 
 	env := os.Getenv("ENV")
 	switch env {
+	case "LOCAL":
+		server = newMinimalServer(LOCAL)
 	case "DEV":
 		server = newMinimalServer(DEV)
 	case "UAT":
@@ -89,7 +77,7 @@ func main() {
 	case "PROD":
 		server = newMinimalServer(PROD)
 	default:
-		server = newMinimalServer(DEV)
+		server = newMinimalServer(LOCAL)
 	}
 
 	defer func() { _ = server.log.Sync() }()
@@ -109,6 +97,7 @@ func newMinimalServer(env Environment) *Server {
 		router: newRouter(env, log),
 		views:  views.New(log),
 	}
+
 	server.routes()
 	return server
 }
@@ -116,10 +105,12 @@ func newMinimalServer(env Environment) *Server {
 func newLogger(env Environment) *zap.SugaredLogger {
 	var logger *zap.Logger
 	switch env {
-	case DEV:
+	case LOCAL:
 		logger, _ = zap.NewDevelopment()
-	case UAT, PROD:
-		logger, _ = zap.NewProduction()
+	case DEV, UAT, PROD:
+		config := zap.NewProductionConfig()
+		config.EncoderConfig = ecszap.ECSCompatibleEncoderConfig(config.EncoderConfig)
+		logger, _ = config.Build(ecszap.WrapCoreOption(), zap.AddCaller())
 	}
 	return logger.Sugar()
 }

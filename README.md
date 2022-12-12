@@ -10,11 +10,11 @@
 
 ## Environment Variables
 
-`export ENV=DEV (default) / UAT / PROD`
+`export ENV=LOCAL (default) / DEV / UAT / PROD`
 
 #### What changes in each environment?
 
-UAT/PROD: Production zap logger [instead of development](https://pkg.go.dev/go.uber.org/zap#hdr-Configuring_Zap)
+DEV/UAT/PROD: Production [ECS zap logger](https://www.elastic.co/guide/en/ecs-logging/go-zap/current/setup.html) [instead of development](https://pkg.go.dev/go.uber.org/zap#hdr-Configuring_Zap)
 
 ## Build
 
@@ -33,6 +33,7 @@ UAT/PROD: Production zap logger [instead of development](https://pkg.go.dev/go.u
 
 `chi` for routering  
 `zap` for logging
+`swagger-ui-dist` [vendored](https://github.com/swagger-api/swagger-ui) use the [Swagger Editor](https://editor.swagger.io), see `localhost:3000/swagger/`
 
 `httptest` stdlib, spin up mock server responses & http integration requests  
 `is` for testing assertions  
