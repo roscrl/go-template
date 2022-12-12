@@ -1,9 +1,9 @@
-# Air is a hotreloader app which rebuilds the app whenever source files change
+# Air is a hotreloader app which tests & rebuilds the app whenever source files change
 
 [build]
   args_bin = []
   bin = "./bin/app"
-  cmd = "templ generate -path ./views/ && go test && go build -o ./bin/app ."
+  cmd = "go test -v ./... && go build -o ./bin/app ."
   delay = 200
   exclude_dir = ["assets", "tmp", "vendor", "bin"]
   exclude_file = []

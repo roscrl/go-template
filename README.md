@@ -19,24 +19,22 @@ UAT/PROD: Production zap logger [instead of development](https://pkg.go.dev/go.u
 ## Build
 
 `make run`  
-`make hotreload` on file change - rebuild, test & rerun  
+`make hotreload` on file change - test, build & run  
 `make test`  
 `make lint`  
 `make build`
 
 ## Docker
 
-`docker build . --tag go-template -f config/Dockerfile` image defaults to platform architecture  
 `docker build . --platform=linux/amd64 --tag go-template -f config/Dockerfile` x86-64  
 `docker build . --platform=linux/arm64 --tag go-template -f config/Dockerfile` arm64
 
 ## Dependencies
 
 `chi` for routering  
-`zap` for logging  
-`templ` for server side template rendering
+`zap` for logging
 
-`httptest` to spin up mock server responses & http integration requests  
+`httptest` stdlib, spin up mock server responses & http integration requests  
 `is` for testing assertions  
 `moq` for mocking interfaces, or prefer to [inline test data into structs](https://jrock.us/posts/go-interfaces/)
 
@@ -52,4 +50,4 @@ UAT/PROD: Production zap logger [instead of development](https://pkg.go.dev/go.u
 
 ## Miscellaneous bits & bobs to look into
 
-OpenAPI, OpenTelemetry, Grafana + Prometheus, Cucumber - Godog, Kerberos
+OpenAPI + Makefile, OpenTelemetry, Grafana + Prometheus, Cucumber - Godog, Kerberos

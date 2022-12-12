@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"os"
 
+	"app/views"
+
 	m "app/middleware"
 
 	_ "net/http/pprof"
@@ -31,7 +33,11 @@ type Server struct {
 	log *zap.SugaredLogger
 
 	router *chi.Mux
+	views  *views.View
 }
+
+// TODO fix formatting vim go templates
+// TODO use go embed for templates
 
 func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	s.router.ServeHTTP(w, req)
@@ -55,6 +61,22 @@ func (s *Server) decode(w http.ResponseWriter, req *http.Request, data any) erro
 	return json.NewDecoder(req.Body).Decode(data)
 }
 
+//	@title			Swagger Example API
+//	@version		1.0
+//	@description	This is a sample server celler server.
+//	@termsOfService	http://swagger.io/terms/
+
+//	@contact.name	API Support
+//	@contact.url	http://www.swagger.io/support
+//	@contact.email	support@swagger.io
+
+//	@license.name	Apache 2.0
+//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
+
+//	@host		localhost:8080
+//	@BasePath	/api/v1
+
+//	@securityDefinitions.basic	BasicAuth
 func main() {
 	var server *Server
 
@@ -81,7 +103,12 @@ func main() {
 
 func newMinimalServer(env Environment) *Server {
 	log := newLogger(env)
-	server := &Server{env: env, log: log, router: newRouter(env, log)}
+	server := &Server{
+		env:    env,
+		log:    log,
+		router: newRouter(env, log),
+		views:  views.New(log),
+	}
 	server.routes()
 	return server
 }
